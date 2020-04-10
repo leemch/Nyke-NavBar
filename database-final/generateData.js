@@ -962,9 +962,14 @@ const writeDataTwo = (amount, threshold) => {
   reject("Something went wrong");
 }
 
-const getData = (amount) => {
+const getData = (amount, startingIndex) => {
   let data = generateRandomDataSet(amount)
-  let counter = 100
+  let counter = 100;
+  
+  if(startingIndex) {
+    counter = startingIndex;
+  }
+
   data.forEach(shoe => {
     shoe.nikeID = counter
     counter++

@@ -9,7 +9,7 @@ const connection = {
     port: 5432,
     database: 'postgres',
     user: 'postgres',
-    password: 'googoo'
+    password: 'postgres'
 }
 
 async function uploadFromFile() {

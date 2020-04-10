@@ -1,3 +1,4 @@
 node_modules
 /database-pg/dataFile
 /database-pg/connection.js
+newrelic.js

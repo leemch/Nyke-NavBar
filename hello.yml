@@ -1,0 +1,17 @@
+config:
+  target: 'http://127.0.0.1:3001'
+  phases:
+    - duration: 60
+      arrivalRate: 10
+  defaults:
+    headers:
+      x-my-service-auth: '987401838271002188298567'
+scenarios:
+  - name: "Search collection React"
+    flow:
+      - get:
+          url: "/search/React"
+  - name: "Search nikeID 9999999"
+    flow:
+      - get:
+          url: "/search_mongo_id/9999999"
