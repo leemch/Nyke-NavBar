@@ -23,7 +23,7 @@ client.connect(function (err) {
 
 
 
-    collection.createIndex({ nikeID: 1 }, function (err, result) {
+    collection.createIndex({ nikeID: 1, discountPrice: -1 }, function (err, result) {
         console.log("done adding index");
         console.time('insertTimer');
         seedData(collection).then(() => {

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack -w",
     "start": "nodemon server/index.js",
-    "seed": "node database-final/seed.js",
+    "seed": "node database-final/seedMongo.js",
     "schema": "psql -U postgres -f ./database-pg/schema.sql",
     "seedpg": "node database-pg/createDataFile.js && node database-pg/seedPg.js"
   },

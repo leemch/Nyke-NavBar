@@ -13,3 +13,4 @@ CREATE TABLE shoes (
 );
 
 CREATE INDEX ON shoes((DATA->>'nikeID'));
+CREATE INDEX ON shoes(cast(DATA->>'discountPrice' AS int));
