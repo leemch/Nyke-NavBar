@@ -975,7 +975,7 @@ const writeDataTwo = (amount, threshold) => {
     // resolve("success!");
 
 
-    const file = fs.createWriteStream(`./dataFile/rawUnparsedDataTest.json`);
+    const file = fs.createWriteStream(`./dataFile/rawUnparsedData.json`);
     let i = 0;
     write();
     function write() {
