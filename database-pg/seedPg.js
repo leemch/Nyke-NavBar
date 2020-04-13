@@ -12,6 +12,7 @@ const connection = {
     password: 'postgres'
 }
 
+
 async function uploadFromFile() {
     // inputfile & target table
     console.time('insertTimer');

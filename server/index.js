@@ -51,25 +51,8 @@ app.listen(PORT, (err) => {
 })
 
 
-
-
-// router.get(`/search/:keyword`, (req, res) => {
-//     // console.log('Searching!-->', req.params);
-//     // console.time('mongoQueryTime')
-//     find(mongo_db, req.params.keyword)
-//         .then((result) => {
-//             //console.timeEnd('mongoQueryTime')
-//             //console.log('Successful!');
-//             res.status(200).send(result);
-//         })
-//         .catch((err) => {
-//             res.status(400).send(err);
-//         })
-// })
-
 router.get(`/search/:keyword`, (req, res) => {
     //console.log('Searching!-->', req.params);
-    
     //console.time('PostGresQueryTime')
     pgFind(pg_client, req.params.keyword)
         .then((result) => {
@@ -81,6 +64,7 @@ router.get(`/search/:keyword`, (req, res) => {
             res.status(400).send(err);
         })
 })
+
 
 router.get(`/search_postgres_id/:id`, (req, res) => {
     // console.log('Searching postgres nikeID!-->', req.params.id);
@@ -97,18 +81,36 @@ router.get(`/search_postgres_id/:id`, (req, res) => {
 })
 
 router.get(`/search_postgres_price/:price`, (req, res) => {
-    console.log('Searching postgres price!-->', req.params.price);
-    console.time('PostGres search by price time')
+    //console.log('Searching postgres price!-->', req.params.price);
+    //console.time('PostGres search by price time')
     pgFindLessThanPrice(pg_client, req.params.price)
         .then((result) => {
-            console.log('Successful!');
-            console.timeEnd('PostGres search by price time')
+            //console.log('Successful!');
+            //console.timeEnd('PostGres search by price time')
             res.status(200).send(result.rows.map(row => row.data));
         })
         .catch((err) => {
             res.status(400).send(err);
         })
 })
+
+
+
+// router.get(`/search/:keyword`, (req, res) => {
+//     // console.log('Searching!-->', req.params);
+//     // console.time('mongoQueryTime')
+//     find(mongo_db, req.params.keyword)
+//         .then((result) => {
+//             //console.timeEnd('mongoQueryTime')
+//             //console.log('Successful!');
+//             res.status(200).send(result);
+//         })
+//         .catch((err) => {
+//             res.status(400).send(err);
+//         })
+// })
+
+
 
 // router.get(`/search_mongo_id/:id`, (req, res) => {
 //     //console.log('Searching mongo nikeID!-->', req.params.id);
