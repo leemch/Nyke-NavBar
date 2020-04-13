@@ -1,6 +1,3 @@
-
-
-
 CREATE TABLE shoes (
    DATA jsonb
    -- id SERIAL NOT NULL PRIMARY KEY
