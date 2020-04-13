@@ -912,54 +912,105 @@ let generateRandomDataSet = (dataSetSize) => {
 
 const writeData = (amount, threshold) => {
   return new Promise((resolve, reject) => {
-    console.time('writeTimer');
-    let counter = 100
-    const file = fs.createWriteStream(`./database-pg/dataFile/rawUnparsedDataTest.json`);
 
-    for (let i = 0; i < amount; i += threshold) {
-      let data = generateRandomDataSet(threshold)
-      data.forEach(shoe => {
-        shoe.nikeID = counter
-        counter++
-      })
-      let toAdd = data.reduce((acc, shoe) => acc + JSON.stringify(shoe) + '\n', '')
-
-      console.log("writing " + (i + threshold));
-      file.write(toAdd);
+    const file = fs.createWriteStream(`./dataFile/rawUnparsedDataTest.json`);
+    let i = 0;
+    write();
+    function write() {
+      let ok = true;
+      do {
+        i++;
+        let data = generateRandomDataSet(1)[0]
+        data.nikeID = i;
+        // data.forEach(shoe => {
+        //   shoe.nikeID = counter
+        //   counter++
+        // })
+        let toAdd = JSON.stringify(data) + '\n';
+        if (i === amount) {
+          // Last time!
+          file.write(toAdd);
+          file.end();
+          console.log("finished writing file")
+          resolve("success!");
+        } else {
+          // See if we should continue, or wait.
+          // Don't pass the callback, because we're not done yet.
+          ok = file.write(toAdd);
+          if(i%100000 === 0)
+            console.log("writing " + i);
+        }
+      } while (i <= amount && ok);
+      if (i > 0) {
+        // Had to stop early!
+        // Write some more once it drains.
+        file.once('drain', write);
+      }
     }
-
-    file.end();
-    console.log("finished writing file")
-    console.timeEnd('writeTimer');
-    resolve("success!");
-  });
-  reject("Something went wrong");
+    });
+    reject("Something went wrong");
 }
 
 const writeDataTwo = (amount, threshold) => {
   return new Promise((resolve, reject) => {
-    console.time('writeTimer');
-    let counter = 100
-    const file = fs.createWriteStream(`./database-pg/dataFile/rawUnparsedData.json`);
+    // console.time('writeTimer');
+    // let counter = 100
+     //const file = fs.createWriteStream(`./database-pg/dataFile/rawUnparsedData.json`);
 
-    for (let i = 0; i < amount; i += threshold) {
-      let data = generateRandomDataSet(threshold)
-      data.forEach(shoe => {
-        shoe.nikeID = counter
-        counter++
-      })
-      let toAdd = data.reduce((acc, shoe) => acc + JSON.stringify(shoe) + '\n', '')
+    // for (let i = 0; i < amount; i += threshold) {
+    //   let data = generateRandomDataSet(threshold)
+    //   data.forEach(shoe => {
+    //     shoe.nikeID = counter
+    //     counter++
+    //   })
+    //   let toAdd = data.reduce((acc, shoe) => acc + JSON.stringify(shoe) + '\n', '')
 
-      console.log("writing " + (i + threshold));
-      file.write(toAdd);
+    //   console.log("writing " + (i + threshold));
+    //   file.write(toAdd);
+    // }
+
+    // file.end();
+    // console.log("finished writing file")
+    // console.timeEnd('writeTimer');
+    // resolve("success!");
+
+
+    const file = fs.createWriteStream(`./dataFile/rawUnparsedDataTest.json`);
+    let i = 0;
+    write();
+    function write() {
+      let ok = true;
+      do {
+        i++;
+        let data = generateRandomDataSet(1)[0]
+        data.nikeID = i;
+        // data.forEach(shoe => {
+        //   shoe.nikeID = counter
+        //   counter++
+        // })
+        let toAdd = JSON.stringify(data) + '\n';
+        if (i === amount) {
+          // Last time!
+          file.write(toAdd);
+          file.end();
+          console.log("finished writing file")
+          resolve("success!");
+        } else {
+          // See if we should continue, or wait.
+          // Don't pass the callback, because we're not done yet.
+          ok = file.write(toAdd);
+          if(i%100000 === 0)
+            console.log("writing " + i);
+        }
+      } while (i <= amount && ok);
+      if (i > 0) {
+        // Had to stop early!
+        // Write some more once it drains.
+        file.once('drain', write);
+      }
     }
-
-    file.end();
-    console.log("finished writing file")
-    console.timeEnd('writeTimer');
-    resolve("success!");
-  });
-  reject("Something went wrong");
+    });
+    reject("Something went wrong");
 }
 
 const getData = (amount, startingIndex) => {
