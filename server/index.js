@@ -5,13 +5,14 @@ const path = require('path');
 const app = express();
 const router = express.Router();
 //const MongoClient = require( 'mongodb').MongoClient
-const pg = require('pg').Client
+//const pg = require('pg').Client
+const pg = require('pg').Pool
 const { find, mongoFindById, mongoFindByPrice } = require('../database-final/dbhelpers.js')
 const { pgFind, pgFindById, pgFindLessThanPrice } = require('../database-pg/pg_helpers.js')
 
 const pg_connection = require('../database-pg/connection.js');
 const pg_client = new pg(pg_connection)
-pg_client.connect()
+//pg_client.connect()
 
 // const url = 'mongodb://localhost:27017';
 // const dbName = 'nike';
